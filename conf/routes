@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /login                                 controllers.Application.enterCredentials()
+GET         /                                      controllers.Application.index()
+GET         /like/:id                              controllers.Application.like(id: String)
+GET         /nope/:id                              controllers.Application.nope(id: String)
+GET         /updates                               controllers.Application.updates(token: String)
+GET         /nearby                                controllers.Application.nearby()
+GET         /userinfo/:id                          controllers.Application.userinfo(id: String)
+#GET        /message/:id         controllers.Application.message
+GET         /profile                               controllers.Application.profile()
+GET         /updatelocation/:lat/:lon              controllers.Application.updateLocation(lat: String, lon: String)
+POST        /login                                 controllers.Application.login
+GET         /logout                                controllers.Application.logOut()
+GET         /fb/:id                                controllers.Application.facebook(id: String)
+GET         /.well-known/acme-challenge/:id        controllers.Application.letsencrypt(id: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                          controllers.Assets.at(path="/public", file)

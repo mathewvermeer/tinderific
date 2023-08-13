@@ -1,0 +1,6 @@
+Tinderific
+=====================================
+
+An old (and unfortunately unfinished) Play web application written in Scala that I made as a student hobby project many years ago. It logs into Tinder using Facebook OAuth, and provides a web interface for the Tinder smartphone app. Instead of a single person, it displays eight recommendations concurrently on the screen. It also allows the user to automatically perform any number of likes, and change location using Google Maps.
+
+Naturally, it was compatible with an older version of Tinder and, hence, no longer functions.

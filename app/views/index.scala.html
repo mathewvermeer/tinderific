@@ -1,0 +1,194 @@
+@()
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+            <!-- Note there is no responsive meta tag here -->
+
+        <title>Tinderific</title>
+
+
+            <!-- Custom styles for this template -->
+        <link href="@routes.Assets.at("stylesheets/foundation.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/style.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/jquery-gmaps-latlon-picker.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("owl-carousel/owl.carousel.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("owl-carousel/owl.theme.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("owl-carousel/owl.transitions.css")" rel="stylesheet">
+
+            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
+    </head>
+
+    <body>
+        <div style="display: none">
+            <img src="@routes.Assets.at("images/spinner_small.gif")" alt="">
+        </div>
+            <!-- Fixed navbar -->
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="#">Tinderific</a></h1>
+                </li>
+                    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                    <!-- Right Nav Section -->
+                <ul class="left">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Matches</a></li>
+                    <li><a href="#">Messages</a></li>
+                </ul>
+                <ul class="right">
+                    <li data-reveal-id="swipe-modal"><a href="#">Autoswipe</a></li>
+                    <li data-reveal-id="location-modal"><a href="#">Change location!</a></li>
+                    <li><a href="@routes.Application.logOut()">Logout</a></li>
+                </ul>
+            </section>
+        </nav>
+
+        <div class="container main-container">
+            <div class="row">
+                <ul class="large-block-grid-4 medium-block-grid-2 small-block-grid-1">
+                @for(x <- List(0, 4); y <- List(1, 2, 3, 4)) {
+                    <li>
+                        <div class="large-3 columns" id="c@(x + y)">
+                            <div class="recommendation">
+                                <input type="hidden" id="id@(x + y)" />
+                                <div class="img-wrapper">
+                                    <img class="spinner" src="@routes.Assets.at("images/spinner_small.gif")">
+                                </div>
+                                <div class="recommendation-info"><span class="recommendation-name">Loading...</span> <span class="extra-info"></span></div>
+                                <div class="recommendation-options-container">
+                                    <div class="nope-container"></div>
+                                    <div class="i-container"></div>
+                                    <div class="like-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+                </ul>
+            </div>
+
+        </div> <!-- /container -->
+
+        <div id="location-modal" class="reveal-modal tiny" data-reveal>
+            <h2>Change location</h2>
+            <div class="gllpLatlonPicker" id="custom_id">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="row collapse postfix-round">
+                            <div class="small-9 columns">
+                                <input type="text" class="gllpSearchField" placeholder="Enter the location...">
+                            </div>
+                            <div class="small-3 columns">
+                                <input type="button" class="button postfix gllpSearchButton" value="Search" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="gllpMap">Google Maps</div>
+                        <input type="hidden" class="gllpLatitude" />
+                        <input type="hidden" class="gllpLongitude" />
+                        <input type="hidden" class="gllpZoom" value="4" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <ul class="button-group text-center">
+                        <li><input type="button" id="location-cancel" class="button" value="Cancel" /></li>
+                        <li><input type="button" id="location-ok" class="button" value="Go" /></li>
+                    </ul>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="swipe-modal" class="reveal-modal small" data-reveal>
+            <h2>Autoswipe!</h2>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label>
+                        # of swipes <input type="text" name="amount" id="amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label>
+                        milliseconds between each swipe <input type="text" name="interval" id="interval" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/></label>
+                </div>
+            </div>
+            <ul class="button-group text-center">
+                <li><input type="button" id="swipe-cancel" class="button" value="Cancel" /></li>
+                <li><input type="button" id="swipe-ok" class="button" value="Go" /></li>
+            </ul>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="info-modal" class="reveal-modal small" data-reveal>
+            <h2 id="info-name"></h2>
+            <div id="info-carousel" class="text-center">
+            </div>
+            <div id="info-bio-div">
+                <h4>Bio</h4>
+                <p id="info-bio"></p>
+            </div>
+            <div id="info-friends-div">
+                <h4>Mutual Friends (<span id="info-friends-amount"></span>)</h4>
+                <div id="info-friends-carousel"></div>
+            </div>
+            <div id="info-likes-div">
+                <h4>Common Interests (<span id="info-likes-amount"></span>)</h4>
+                <div id="info-likes-carousel"></div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="location-error-modal" class="reveal-modal small" data-reveal>
+            <h2>Error!</h2>
+            <p class="lead">Tinderific was unable to change your location :(</p>
+            <p>You've probably already changed your location recently. Please try again later.</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="recs-error-modal" class="reveal-modal small" data-reveal>
+            <h2>Error!</h2>
+            <p class="lead">Tinderific is unable to load new recommendations :(</p>
+            <p>Please try again later.</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="match-modal" class="reveal-modal small" data-reveal>
+            <h2>Congratulations!</h2>
+            <p class="lead">You have a new match! :)</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="no-likes-modal" class="reveal-modal small" data-reveal>
+            <h2>Too bad!</h2>
+            <p class="lead">Afraid you've run out of likes, bro. Try again later.</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script src="@routes.Assets.at("javascripts/foundation.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-gmaps-latlon-picker.js")"></script>
+        <script src="@routes.Assets.at("owl-carousel/owl.carousel.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/script.js")"></script>
+    </body>
+</html>

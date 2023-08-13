@@ -1,0 +1,96 @@
+body {
+    background: #F1F1F1 repeat;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #777;
+    overflow-x: hidden;
+}
+
+.spinner {
+    padding: 110px;
+}
+
+.recommendation {
+    -webkit-box-shadow: 4px 4px 12px 0 rgba(50, 50, 50, 0.42);
+    -moz-box-shadow: 4px 4px 12px 0 rgba(50, 50, 50, 0.42);
+    box-shadow: 4px 4px 12px 0 rgba(50, 50, 50, 0.42);
+
+    background-color: #F9F9F9;
+    margin-top: 30px;
+    max-width: 255px;
+    min-width: 255px;
+}
+
+.recommendation-img {
+    margin: 0 auto;
+    width: 255px;
+    height: 255px;
+    opacity: 1;
+    transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -webkit-transition: opacity .15s ease-in-out;
+}
+
+.recommendation-img:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.recommendation-info {
+    font-size: 18px;
+    padding: 5px;
+}
+
+.extra-info {
+    float: right;
+}
+
+.recommendation-options-container {
+    padding-top: 3px;
+    margin-left: 40px;
+    padding-bottom: 20px;
+    width: 210px;
+    height: 90px;
+
+}
+
+.top-row .recommendation {
+    margin-top: 15px;
+}
+
+.nope-container, .i-container, .like-container {
+    float: left;
+    height: 73px;
+    background-size: 100% auto;
+}
+
+.nope-container {
+    background-image: url("../images/nope_unpressed.png");
+    width: 70px;
+}
+
+.nope-container:hover {
+    background-image: url("../images/nope_pressed.png");
+}
+
+.i-container {
+    background-image: url("../images/i_unpressed.png");
+    width: 35px;
+}
+
+.i-container:hover {
+    background-image: url("../images/i_pressed.png");
+}
+
+.like-container {
+    background-image: url("../images/like_unpressed.png");
+    width: 70px;
+}
+
+.like-container:hover {
+    background-image: url("../images/like_pressed.png");
+    background-size: 100% auto;
+}
+
+.row {
+    max-width: 80em;
+}
